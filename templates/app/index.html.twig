@@ -3,81 +3,50 @@
 {% block title %}Welcome to Tic Tac Toe Game!{% endblock %}
 
 {% block body %}
-<div id="app" class="app">
-    <article class="has-text-centered">
-        <h1 class="title is-1">
-            Welcome to the Tic Tac Toe Game
-        </h1>
-        <h3 class="subtitle">
-            Choose your unit
-        </h3>
-    </article>
+    {% verbatim %}
+        <div id="app" class="app">
+            <article class="has-text-centered">
+                <h1 class="title is-1">
+                    Welcome to the Tic Tac Toe Game
+                </h1>
+            </article>
 
-    <div class="columns is-centered unit-selector">
-        <div class="column is-1">
-            <div class="box is-size-3 has-text-centered">
-                &#9747
+            <div class="unit-selector has-text-centered" v-if="showUnitSelector">
+                <h3 class="subtitle">
+                    Choose your unit
+                </h3>
+                <div class="columns is-centered">
+                    <div class="column is-1">
+                        <div class="box is-size-3 has-text-centered" @click="chooseUnit('X')">
+                            X
+                        </div>
+                    </div>
+                    <div class="column is-1">
+                        <div class="box is-size-3 has-text-centered" @click="chooseUnit('O')">
+                            O
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="column is-1">
-            <div class="box is-size-3 has-text-centered">
-                &#9898
-            </div>
-        </div>
-    </div>
 
-    <div class="container board">
-        <div class="columns is-centered">
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-        </div>
-        <div class="columns is-centered">
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
+
+            <div class="container has-text-centered board" v-if="showBoard">
+                <h3 class="subtitle">
+                    Your unit is : {{ playerUnit }}
+                </h3>
+                <p class="buttons is-centered">
+                    <button class="button" @click="restartGame">
+                        Start new game?
+                    </button>
+                </p>
+                <div class="columns is-centered" v-for="(row, rowIndex) in board">
+                    <div class="column is-1" v-for="(cell, cellIndex) in row">
+                        <div class="box cell is-size-1 cell-content-centered" @click="makeMove(rowIndex, cellIndex)">
+                            {{ cell }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="columns is-centered">
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-            <div class="column is-1">
-                <div class="box is-size-6 has-text-centered">
-                    &#9747
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    {% endverbatim %}
 {% endblock %}

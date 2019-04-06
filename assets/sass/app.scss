@@ -1,1 +1,11 @@
 @import "~bulma";
+
+.cell {
+  height: 80px;
+}
+
+.cell-content-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

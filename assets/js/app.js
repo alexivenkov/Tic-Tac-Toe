@@ -32,6 +32,13 @@ const app = new Vue({
             const newRow = this.board[row].slice(0);
             newRow[cell] = this.playerUnit;
             this.$set(this.board, row, newRow);
+
+            axios.post('/api/make-move', {
+                board: this.board,
+                playerUnit: this.playerUnit
+            }).then(function (response) {
+                console.log(response.data);
+            });
         },
         restartGame: function () {
             this.showBoard = false;

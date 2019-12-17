@@ -31,15 +31,25 @@
 
 
             <div class="container has-text-centered board" v-if="showBoard">
-                <h3 class="subtitle">
+                <h2 class="subtitle">
                     Your unit is : {{ playerUnit }}
-                </h3>
+                </h2>
+
                 <p class="buttons is-centered">
                     <button class="button" @click="restartGame">
                         Start new game?
                     </button>
                 </p>
-                <div class="columns is-centered" v-for="(row, rowIndex) in board">
+
+                <h2 class="subtitle" v-if="winner">
+                    {{ winner }} win!
+                </h2>
+
+                <h2 class="subtitle" v-if="draw">
+                    Draw!
+                </h2>
+
+                <div class="columns is-centered" v-for="(row, rowIndex) in boardState">
                     <div class="column is-1" v-for="(cell, cellIndex) in row">
                         <div class="box cell is-size-1 cell-content-centered" @click="makeMove(rowIndex, cellIndex)">
                             {{ cell }}

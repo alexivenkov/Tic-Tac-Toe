@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   app:
     container_name: app.tic-tac-toe
@@ -7,6 +7,8 @@ services:
     build:
       context: ./
       dockerfile: ./.docker/build/php-fpm.dockerfile
+    links:
+      - db
     volumes:
     - .:/app
     - ./.docker/configs/php-fpm/www.conf:/etc/php/7.1/fpm/pool.d/www.conf
@@ -19,6 +21,8 @@ services:
     build:
       context: ./
       dockerfile: ./.docker/build/php-cli.dockerfile
+    links:
+      - db
     volumes:
     - .:/app
 
@@ -52,3 +56,19 @@ services:
     restart: always
     links:
     - app
+
+  db:
+    container_name: mysql.tic-tac-toe
+    image: "mysql:5.7"
+    environment:
+      - MYSQL_DATABASE=tic-tac-toe
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+
+volumes:
+  mysql: ~
